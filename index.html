@@ -375,9 +375,15 @@
 ]);
 
 
-  fetch("./agencias-shalom.json")
-  .then(response => response.json())
+fetch("./agencias-shalom.json")
+  .then(response => {
+    console.log("STATUS:", response.status);
+    return response.json();
+  })
   .then(data => {
+    console.log("AGENCIAS:", data);
+    console.log("TOTAL:", data.length);
+
     crearBuscador(
       "busquedaShalom",
       "listaShalom",
