@@ -427,24 +427,20 @@ fetch("./agencias-shalom.json")
       document.getElementById("busquedaShalom").value;
   }
 
-// Mostrar éxito inmediatamente
-document.getElementById("formContent").style.display = "none";
-document.getElementById("successMessage").style.display = "block";
-
-// Enviar en segundo plano
 fetch(url, {
   method: "POST",
   mode: "no-cors",
   body: new FormData(this)
-}).catch(error => {
-  console.error(error);
-});
+})
+.then(() => {
+  document.getElementById("formContent").style.display = "none";
+  document.getElementById("successMessage").style.display = "block";
 
-// Redireccionar rápido
-setTimeout(() => {
-  window.location.href =
-    "https://whatsapp.com/channel/0029VaBd1xL1iUxeLkdMVl0f";
-}, 1000);
+  setTimeout(() => {
+    window.location.href =
+      "https://whatsapp.com/channel/0029VaBd1xL1iUxeLkdMVl0f";
+  }, 2000);
+})
     
   .catch(error => {
     console.error(error);
