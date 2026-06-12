@@ -96,7 +96,7 @@
 
   <div id="successMessage">
     <div class="checkmark">✓</div>
-    <h3>¡Envío solicitado!</h3>
+    <h3>¡Solicitud de envio recibida!</h3>
     <p>Redirigiendo a WhatsApp...</p>
   </div>
 </div>
@@ -407,7 +407,7 @@ fetch("./agencias-shalom.json")
     });
   });
 
-  document.getElementById("formEnvio").addEventListener("submit", function(e) {
+document.getElementById("formEnvio").addEventListener("submit", function(e) {
   e.preventDefault();
 
   const met = document.getElementById("envioInput").value;
@@ -415,29 +415,38 @@ fetch("./agencias-shalom.json")
   if (met === "olva") {
     document.getElementById("detalleFinal").value =
       `${document.getElementById("busquedaOlva").value}, ${document.getElementById("olvaDireccion").value}, Ref: ${document.getElementById("olvaRef").value}`;
-  } else if (met === "motorizado") {
+  }
+
+  else if (met === "motorizado") {
     document.getElementById("detalleFinal").value =
       `${document.getElementById("busquedaMoto").value}, ${document.getElementById("motoDireccion").value}, Ref: ${document.getElementById("motoRef").value}`;
-  } else if (met === "shalom") {
+  }
+
+  else if (met === "shalom") {
     document.getElementById("detalleFinal").value =
       document.getElementById("busquedaShalom").value;
   }
 
- document.getElementById("formContent").style.display = "none";
+  // Mostrar éxito INMEDIATAMENTE
+  document.getElementById("formContent").style.display = "none";
   document.getElementById("successMessage").style.display = "block";
 
-  fetch(url, {
-    method: "POST",
-    mode: "no-cors",
-    body: new FormData(this)
-  }).catch(error => {
-    console.error("Error enviando:", error);
-  });
+  // Enviar en segundo plano
+  setTimeout(() => {
+    fetch(url, {
+      method: "POST",
+      mode: "no-cors",
+      body: new FormData(document.getElementById("formEnvio"))
+    }).catch(error => {
+      console.error("Error enviando:", error);
+    });
+  }, 10);
 
+  // Redirección
   setTimeout(() => {
     window.location.href =
       "https://whatsapp.com/channel/0029VaBd1xL1iUxeLkdMVl0f";
-  }, 800);
+  }, 1000);
 });
 </script>
 </body>
