@@ -410,10 +410,6 @@ fetch("./agencias-shalom.json")
   document.getElementById("formEnvio").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const btn = document.getElementById("btnEnviar");
-  btn.innerText = "Procesando...";
-  btn.disabled = true;
-
   const met = document.getElementById("envioInput").value;
 
   if (met === "olva") {
